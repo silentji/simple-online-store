@@ -1,0 +1,70 @@
+.page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.back {
+  background: none;
+  border: none;
+  color: #e94560;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.detail img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.id {
+  color: #999;
+  font-size: 0.85rem;
+}
+.info h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+.price {
+  color: #e94560;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.stock {
+  color: #666;
+}
+.addBtn {
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: fit-content;
+}
+.addBtn:hover {
+  opacity: 0.85;
+}
+.confirmation {
+  background: #d4edda;
+  color: #155724;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+@media (max-width: 600px) {
+  .detail {
+    grid-template-columns: 1fr;
+  }
+}
