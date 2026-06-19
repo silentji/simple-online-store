@@ -1,0 +1,32 @@
+.control {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #1a1a2e;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 36px;
+  width: fit-content;
+}
+.btn {
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  width: 36px;
+  height: 100%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.btn:hover:not(:disabled) { background: #e94560; }
+.btn.disabled { opacity: 0.4; cursor: not-allowed; }
+.qty {
+  min-width: 36px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0 4px;
+}

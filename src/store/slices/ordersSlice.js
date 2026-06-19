@@ -4,25 +4,21 @@ const ordersSlice = createSlice({
   name: 'orders',
   initialState: {
     list: [],
-    lastConfirmationNumber: null,
   },
   reducers: {
     placeOrder(state, action) {
       const confirmationNumber = `ORD-${Date.now()}`;
       state.list.push({
         id: confirmationNumber,
-        items: action.payload,
+        items: action.payload.items,
+        total: action.payload.total,
         placedAt: new Date().toISOString(),
+        status: 'Принят',
       });
-      state.lastConfirmationNumber = confirmationNumber;
-    },
-    clearConfirmation(state) {
-      state.lastConfirmationNumber = null;
     },
   },
 });
 
-export const { placeOrder, clearConfirmation } = ordersSlice.actions;
+export const { placeOrder } = ordersSlice.actions;
 export const selectOrders = (state) => state.orders.list;
-export const selectLastConfirmation = (state) => state.orders.lastConfirmationNumber;
 export default ordersSlice.reducer;

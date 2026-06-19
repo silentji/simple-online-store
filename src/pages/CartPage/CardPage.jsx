@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import {
-  selectCartItems, selectCartTotal,
-  updateQuantity, removeFromCart, clearCart
+  selectCartItems, selectCartTotal, selectCartLocked,
+  incrementItem, decrementItem, removeFromCart, clearCart, lockCart, unlockCart,
 } from '../../store/slices/cartSlice';
-import { placeOrder, selectLastConfirmation } from '../../store/slices/ordersSlice';
+import { placeOrder } from '../../store/slices/ordersSlice';
+import QuantityControl from '../../components/QuantityControl/QuantityControl';
 import styles from './CartPage.module.css';
 
 export default function CartPage() {
@@ -12,70 +14,74 @@ export default function CartPage() {
   const navigate = useNavigate();
   const items = useSelector(selectCartItems);
   const total = useSelector(selectCartTotal);
-  const confirmation = useSelector(selectLastConfirmation);
+  const locked = useSelector(selectCartLocked);
 
   const handlePlaceOrder = () => {
-    if (items.length === 0) return;
-    dispatch(placeOrder(items));
-    dispatch(clearCart());
+    const overStock = items.find((i) => i.quantity > i.stock);
+    if (overStock) {
+      toast.error(`«${overStock.name}»: доступно только ${overStock.stock} шт.`);
+      return;
+    }
+    dispatch(placeOrder({ items, total }));
+    dispatch(lockCart());
+    toast.success('Заказ успешно оформлен!');
+    navigate('/orders');
   };
 
   const handleCancel = () => {
     dispatch(clearCart());
+    dispatch(unlockCart());
+    toast('Корзина очищена', { icon: '🗑️' });
   };
-
-  if (confirmation) {
-    return (
-      <div className={styles.page}>
-        <div className={styles.success}>
-          <h2>🎉 Заказ создан!</h2>
-          <p>Номер подтверждения: <strong>{confirmation}</strong></p>
-          <button onClick={() => navigate('/products')}>Продолжить покупки</button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.page}>
       <h2>Корзина</h2>
+
+      {locked && (
+        <div className={styles.lockedBanner}>
+          У вас есть активный заказ. <button onClick={() => navigate('/orders')}>Перейти к заказам</button> или <button onClick={handleCancel}>Отменить и очистить</button>
+        </div>
+      )}
+
       {items.length === 0 ? (
         <div className={styles.empty}>
           <p>Корзина пуста.</p>
-          <button onClick={() => navigate('/products')}>Смотреть товары</button>
+          <button onClick={() => navigate('/products')}>К товарам</button>
         </div>
       ) : (
         <>
-          <table className={styles.table}>
-            <thead>
-              <tr><th>Товар</th><th>Цена</th><th>Количество</th><th>Промежуточная сумма</th><th></th></tr>
-            </thead>
-            <tbody>
-              {items.map((item) => (
-                <tr key={item.productId}>
-                  <td>#{item.productId} — {item.name}</td>
-                  <td>{item.price.toFixed(2)}₽</td>
-                  <td>
-                    <input
-                      type="number" min="1" value={item.quantity}
-                      onChange={(e) => dispatch(updateQuantity({ productId: item.productId, quantity: e.target.value }))}
-                      className={styles.qtyInput}
-                    />
-                  </td>
-                  <td>{(item.price * item.quantity).toFixed(2)}₽</td>
-                  <td>
-                    <button className={styles.removeBtn} onClick={() => dispatch(removeFromCart(item.productId))}>✕</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className={styles.list}>
+            {items.map((item) => (
+              <div key={item.productId} className={styles.row}>
+                <span className={styles.name}>#{item.productId} — {item.name}</span>
+                <span className={styles.price}>{item.price.toFixed(2)}₽</span>
+                <QuantityControl
+                  quantity={item.quantity}
+                  onIncrement={() => {
+                    if (item.quantity >= item.stock) {
+                      toast.error(`Доступно только ${item.stock} шт.`);
+                      return;
+                    }
+                    dispatch(incrementItem(item.productId));
+                  }}
+                  onDecrement={() => dispatch(decrementItem(item.productId))}
+                  atMax={item.quantity >= item.stock}
+                />
+                <span className={styles.subtotal}>{(item.price * item.quantity).toFixed(2)}₽</span>
+                <button className={styles.removeBtn} onClick={() => dispatch(removeFromCart(item.productId))}>✕</button>
+              </div>
+            ))}
+          </div>
+
           <div className={styles.footer}>
             <p className={styles.total}>Итого: <strong>{total.toFixed(2)}₽</strong></p>
             <div className={styles.actions}>
-              <button className={styles.moreBtn} onClick={() => navigate('/products')}>Продолжить просмотр товаров</button>
-              <button className={styles.cancelBtn} onClick={handleCancel}>Отменить заказ</button>
-              <button className={styles.placeBtn} onClick={handlePlaceOrder}>Создать заказ</button>
+              <button className={styles.moreBtn} onClick={() => navigate('/products')}>К товарам</button>
+              <button className={styles.cancelBtn} onClick={handleCancel}>Отменить</button>
+              {!locked && (
+                <button className={styles.placeBtn} onClick={handlePlaceOrder}>Оформить заказ</button>
+              )}
             </div>
           </div>
         </>

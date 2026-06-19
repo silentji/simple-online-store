@@ -1,0 +1,103 @@
+.page {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.header h2 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin: 0;
+}
+.newBtn {
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.3rem;
+  border-radius: 8px;
+  cursor: pointer; 
+  font-weight: 600;
+}
+.empty {
+  color: #888;
+  text-align: center;
+  padding: 3rem;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+}
+.summary:hover {
+  background: #fafafa;
+}
+.orderId {
+  font-weight: 700;
+  margin-right: 1rem;
+  color: #1a1a2e;
+}
+.date {
+  color: #888;
+  font-size: 0.85rem;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.status {
+  background: #d4edda;
+  color: #155724;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.orderTotal {
+  font-weight: 700;
+  color: #e94560;
+}
+.toggle {
+  color: #888;
+  font-size: 0.75rem;
+}
+.items {
+  padding: 0 1.25rem 1.25rem;
+}
+.items table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.items th, .items td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+.items th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+.itemsTotal {
+  text-align: right;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
