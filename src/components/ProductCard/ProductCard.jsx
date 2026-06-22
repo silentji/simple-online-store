@@ -22,7 +22,7 @@ export default function ProductCard({ product }) {
 
   const handleIncrement = () => {
     if (cartItem.quantity >= product.stock) {
-      toast.error(`Доступно только ${product.stock} шт.`);
+      toast.warn(`Выбрано максимальное количество: ${product.stock} шт.`);
       return;
     }
     dispatch(incrementItem(product.id));
@@ -44,6 +44,7 @@ export default function ProductCard({ product }) {
         <h3 onClick={() => navigate(`/products/${product.id}`)}>{product.name}</h3>
         <p className={styles.price}>{product.price.toFixed(2)}₽</p>
         <p className={styles.desc}>{product.shortDescription}</p>
+        <p className={styles.stock}>В наличии: {product.stock} шт.</p>
         {cartItem ? (
           <QuantityControl
             quantity={cartItem.quantity}

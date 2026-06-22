@@ -25,7 +25,9 @@ export default function CartPage() {
     dispatch(placeOrder({ items, total }));
     dispatch(lockCart());
     toast.success('Заказ успешно оформлен!');
+    dispatch(clearCart());
     navigate('/orders');
+    dispatch(unlockCart());
   };
 
   const handleCancel = () => {
@@ -54,7 +56,7 @@ export default function CartPage() {
           <div className={styles.list}>
             {items.map((item) => (
               <div key={item.productId} className={styles.row}>
-                <span className={styles.name}>#{item.productId} — {item.name}</span>
+                <span className={styles.name} onClick={() => navigate(`/products/${item.productId}`)}>#{item.productId} — {item.name}</span>
                 <span className={styles.price}>{item.price.toFixed(2)}₽</span>
                 <QuantityControl
                   quantity={item.quantity}

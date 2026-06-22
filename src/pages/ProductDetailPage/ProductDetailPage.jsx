@@ -27,7 +27,7 @@ export default function ProductDetailPage() {
 
   const handleIncrement = () => {
     if (cartItem.quantity >= product.stock) {
-      toast.error(`Доступно только ${product.stock} шт.`);
+      toast.warn(`Выбрано максимальное количество: ${product.stock} шт.`);
       return;
     }
     dispatch(incrementItem(product.id));
@@ -52,7 +52,7 @@ export default function ProductDetailPage() {
                 onDecrement={() => dispatch(decrementItem(product.id))}
                 atMax={cartItem.quantity >= product.stock}
               />
-              <span className={styles.inCartNote}>в корзине</span>
+              <button className={styles.inCartNote} onClick={() => navigate('/cart')}>в корзине</button>
             </div>
           ) : (
             <button onClick={handleAdd} className={styles.addBtn}>Добавить в корзину</button>

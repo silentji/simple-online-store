@@ -50,7 +50,7 @@ export default function OrdersPage() {
                     <tbody>
                       {order.items.map((item) => (
                         <tr key={item.productId}>
-                          <td>{item.name}</td>
+                          <td><span className={styles.prodName} onClick={() => navigate(`/products/${item.productId}`)}>{item.name}</span></td>
                           <td>{item.price.toFixed(2)}₽</td>
                           <td>{item.quantity}</td>
                           <td>{(item.price * item.quantity).toFixed(2)}₽</td>

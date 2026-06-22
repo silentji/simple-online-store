@@ -6,4 +6,5 @@ body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   background: #f9f9f9;
   color: #222;
+  cursor: default;
 }

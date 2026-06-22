@@ -5,13 +5,13 @@ import Navbar from './components/Navbar/Navbar';
 import LandingPage from './pages/LandingPage/LandingPage';
 import ProductsPage from './pages/ProductsPage/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
-import CartPage from './pages/CartPage/CardPage';
+import CartPage from './pages/CartPage/CartPage';
 import OrdersPage from './pages/OrdersPage/OrdersPage';
 
 export default function App() {
   return (
     <Fragment>
-      <Toaster position="top-center" toastOptions={{ duration: 1500 }} />
+      <Toaster position="top-center" toastOptions={{ duration: 1500 }} limit={1}/>
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
