@@ -11,7 +11,7 @@ import OrdersPage from './pages/OrdersPage/OrdersPage';
 export default function App() {
   return (
     <Fragment>
-      <Toaster position="top-center" toastOptions={{ duration: 1500 }} limit={1}/>
+      <Toaster position="top-center" toastOptions={{ duration: 1500 }}/>
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />

@@ -1,16 +1,57 @@
-# React + Vite
+# Simple Online Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Учебный проект интернет-магазина, реализованный по заданию [florinpop17/app-ideas](https://github.com/florinpop17/app-ideas/blob/master/Projects/2-Intermediate/Simple-Online-Store.md).
 
-Currently, two official plugins are available:
+## Технологии
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React (Router, Redux, Vite)**
+- **React Hot Toast** (уведомления)
+- **JS**
 
-## React Compiler
+## Структура проекта
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+├── components/       # переиспользуемые компоненты (Navbar, ProductCard, ...)
+├── pages/            # страницы приложения (Landing, Products, Cart, Orders)
+├── store/
+│   ├── index.js
+│   └── slices/       # productsSlice, cartSlice, ordersSlice
+└── data/
+    └── products.json # каталог товаров
+```
 
-## Expanding the ESLint configuration
+## Функционал
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Каталог товаров
+- Пользователь может перейти в каталог товаров с главной страницы
+- На странице товаров отображаются карточки с фото, названием, ценой, кратким описанием и количеством товара на складе
+- Доступна фильтрация товаров по категориям (наушники, клавиатуры, концентраторы, веб-камеры, мыши)
+
+### Страница товара
+- При нажатии на название товара или его изображение открывается страница с подробной информацией: ID товара, полное описание, цена, остаток на складе
+- Кнопка «Добавить в корзину» при первом нажатии превращается в счётчик с кнопками `−` и `+`
+- Нельзя добавить больше единиц, чем есть на складе — при достижении лимита появляется предупреждение
+- Товар с нулевым остатком добавить не получится
+
+### Корзина
+- Содержит в себе список выбранных товаров с возможностью изменить количество через `−` / `+`
+- Нажав на название товара можно перейти на его страницу
+- Автоматический пересчёт стоимости каждой позиции и итоговой суммы
+- Кнопка «Оформить заказ» создаёт заказ и списывает товары со склада
+- Кнопка «Отменить заказ» очищает корзину
+- Кнопка «Смотреть ещё» ведёт обратно в каталог
+
+### Заказы
+- После оформления заказа корзина очищается
+- На отдельной странице заказов отображается история со статусом, датой и составом каждого заказа
+- Можно посмотреть детали заказа: список позиций и итоговую сумму
+- Нажав на название товара в списке можно перейти на его страницу
+
+### Склад
+- Остаток товара уменьшается после каждого оформленного заказа
+- При попытке добавить товар с нулевым остатком в корзину — выводится уведомление об ошибке
+
+### UX
+- Все уведомления (добавление в корзину, ошибки, предупреждения) выводятся через всплывающие тосты
+- Все уведомления пропадают через полторы секунды

@@ -81,8 +81,8 @@ export default function CartPage() {
           <div className={styles.footer}>
             <p className={styles.total}>Итого: <strong>{total.toFixed(2)}₽</strong></p>
             <div className={styles.actions}>
-              <button className={styles.moreBtn} onClick={() => navigate('/products')}>К товарам</button>
-              <button className={styles.cancelBtn} onClick={handleCancel}>Отменить</button>
+              <button className={styles.moreBtn} onClick={() => navigate('/products')}>Смотреть ещё</button>
+              <button className={styles.cancelBtn} onClick={handleCancel}>Отменить заказ</button>
               {!locked && (
                 <button className={styles.placeBtn} onClick={handlePlaceOrder}>Оформить заказ</button>
               )}
