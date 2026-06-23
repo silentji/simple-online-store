@@ -12,10 +12,17 @@ const productsSlice = createSlice({
     setProducts(state, action) {
       state.items = action.payload;
     },
+    decreaseStock(state, action) { // action.payload = [{ productId, quantity }, ...]
+      action.payload.forEach(({ productId, quantity }) => {
+      const product = state.items.find((p) => p.id === productId);
+      if (product) {
+        product.stock = Math.max(0, product.stock - quantity);
+      }});
+    },
   },
 });
 
-export const { setProducts } = productsSlice.actions;
+export const { setProducts, decreaseStock } = productsSlice.actions;
 export const selectProducts = (state) => state.products.items;
 export const selectProductById = (id) => (state) =>
   state.products.items.find((p) => p.id === Number(id));

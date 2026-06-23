@@ -7,6 +7,7 @@ import {
 } from '../../store/slices/cartSlice';
 import { placeOrder } from '../../store/slices/ordersSlice';
 import QuantityControl from '../../components/QuantityControl/QuantityControl';
+import { decreaseStock } from '../../store/slices/productsSlice';
 import styles from './CartPage.module.css';
 
 export default function CartPage() {
@@ -23,6 +24,7 @@ export default function CartPage() {
       return;
     }
     dispatch(placeOrder({ items, total }));
+    dispatch(decreaseStock(items.map((i) => ({ productId: i.productId, quantity: i.quantity }))));
     dispatch(lockCart());
     toast.success('Заказ успешно оформлен!');
     dispatch(clearCart());

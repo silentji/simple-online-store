@@ -20,6 +20,9 @@ export default function ProductDetailPage() {
     if (locked) {
       toast.error('Оформите или отмените текущий заказ перед добавлением товаров');
       return;
+    } else if (product.stock === 0) {
+      toast.error('Товар закончился на складе');
+      return;
     }
     dispatch(addToCart({ productId: product.id, name: product.name, price: product.price, stock: product.stock }));
     toast.success(`«${product.name}» добавлен в корзину`);

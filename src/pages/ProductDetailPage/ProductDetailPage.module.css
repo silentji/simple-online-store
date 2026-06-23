@@ -58,6 +58,9 @@
   color: #555;
   font-size: 0.9rem;
 }
+.inCartNote:hover {
+  text-decoration: underline;
+}
 .addBtn {
   background: #e94560;
   color: white;
