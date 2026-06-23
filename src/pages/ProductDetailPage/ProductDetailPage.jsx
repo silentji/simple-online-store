@@ -14,7 +14,7 @@ export default function ProductDetailPage() {
   const cartItem = useSelector(selectItemInCart(Number(id)));
   const locked = useSelector(selectCartLocked);
 
-  if (!product) return <div className={styles.page}>Товар не найден.</div>;
+  if (!product) return <div className={styles.page}><h1>Ошибка 404</h1>Товар с таким артикулом не найден.</div>;
 
   const handleAdd = () => {
     if (locked) {
